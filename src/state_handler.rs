@@ -170,9 +170,8 @@ impl AppState {
     }
 
     fn handle_enter_command(&mut self) {
-        let split: Vec<&str> = self.user_input.split(" ").collect();
-        let args: Vec<&str> = split[1..].iter().map(|x| x.to_owned()).collect();
-        let cmd_res = Command::new(split[0])
+        let args: Vec<&str> = vec!["-c", (&self.user_input).as_str()];
+        let cmd_res = Command::new("fish")
             .args(args)
             .stdout(std::process::Stdio::piped())
             .stdin(std::process::Stdio::piped())
